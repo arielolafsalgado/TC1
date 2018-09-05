@@ -1,9 +1,37 @@
 require(igraph)
+graphics.off()
 g = read_graph('tc01_data/dolphins.gml',format='gml')
 dolgen = read.table('tc01_data/dolphinsGender.txt')
 
 V(g)$gender =   as.character(dolgen$V2[match(V(g)$label,dolgen$V1)])
 
+##Punto a.
+lN = layout_nicely(g)
+plot(g, layout=lN)
+lFR = layout_with_fr(g)
+x11()
+plot(g, layout=lFR)
+lT = layout_as_tree(g)
+x11()
+plot(g, layout=lT)
+lC = layout_in_circle(g)
+x11()
+plot(g, layout=lC)
+lSPH = layout_on_sphere(g)
+x11()
+plot(g, layout=lSPH)
+lKK = layout_with_kk(g)
+x11()
+plot(g, layout=lKK)
+lG = layout_on_grid(g)
+x11()
+plot(g, layout=lG)
+lSUG = layout_with_sugiyama(g)$layout
+x11()
+plot(g, layout=lSUG)
+
+##Punto b.
+if(T){
 males = as.numeric(V(g)$gender=='m')
 males[is.na(males)] = 0
 females = as.numeric(V(g)$gender=='f')
@@ -37,4 +65,8 @@ for(i in 1:N){
 cruces_fake = cruces_fake/length(E(g))
 mym_fake = mym_fake/length(E(g))
 fyf_fake = fyf_fake/length(E(g))
+}
+hist(cruces_fake,xlab='Fracciòn de crucès')
+abline(v=delta_cruces,col='red')
+
 
