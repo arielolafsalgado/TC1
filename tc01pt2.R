@@ -83,3 +83,56 @@ legend(x=0.3,y=200,legend=c(paste('Valor observado =',round(fyf,2)),paste('p-val
 dev.off()
 }
 
+#Ejercicio 4
+gg = g
+n = length(V(g))
+ggk = gg
+ggc = gg
+ggb = gg
+sizek = NULL
+sizec = NULL
+sizeb = NULL
+for(i in 1:n){
+	#Primero con grado
+	grados = degree(ggk)
+	indice = which.max(grados)
+	ggk = delete_vertices(ggk, indice)
+
+	#Ahora por clustering
+	clust = transitivity(ggc, type='local')
+	indice = which.max(clust)
+	ggc = delete_vertices(ggc, indice)
+
+	#Ahora por betweenness
+	bets = betweenness(ggb)
+	indice = which.max(bets)
+	ggb = delete_vertices(ggb, indice)
+
+	sizek = rbind(sizek, sort(clusters(ggk)$csize, decreasing=T)[1:2])
+	sizec = rbind(sizec, sort(clusters(ggc)$csize, decreasing=T)[1:2])
+	sizeb = rbind(sizeb, sort(clusters(ggb)$csize, decreasing=T)[1:2])
+}
+
+pdf('ej2c.pdf')
+plot(sizek[,2]/sizek[,1], pch=18, col='red',xlab='paso',ylab='relacion 2/1')
+points(sizec[,2]/sizec[,1], pch=17, col='green')
+points(sizeb[,2]/sizeb[,1], pch=16, col='blue')
+legend(x=40, y=0.2, legend=c('Grado', 'Clustering', 'Betweenness'), col=c('red', 'green', 'blue'), pch=18:16)
+plot(sizek[,2], pch=18, col='red',xlab='paso',ylab='size 2',ylim=c(0,n))
+points(sizec[,2], pch=17, col='green')
+points(sizeb[,2], pch=16, col='blue')
+legend(x=40, y=40, legend=c('Grado', 'Clustering', 'Betweenness'), col=c('red', 'green', 'blue'), pch=18:16)
+plot(sizek[,1], pch=18, col='red',xlab='paso',ylab='size 1')
+points(sizec[,1], pch=17, col='green',ylim=c(0,n))
+points(sizeb[,1], pch=16, col='blue')
+legend(x=40, y=40, legend=c('Grado', 'Clustering', 'Betweenness'), col=c('red', 'green', 'blue'), pch=18:16)
+
+plot(sizek[,2], pch=18, col='red',xlab='paso',ylab='size 2',ylim=c(0,n))
+points(sizec[,2], pch=17, col='green')
+points(sizeb[,2], pch=16, col='blue')
+legend(x=40, y=30, legend=c('Grado', 'Clustering', 'Betweenness'), col=c('red', 'green', 'blue'), pch=18:16)
+points(sizek[,1], pch=5, col='red',xlab='paso',ylab='size 1')
+points(sizec[,1], pch=2, col='green',ylim=c(0,n))
+points(sizeb[,1], pch=1, col='blue')
+legend(x=40, y=50, legend=c('Grado', 'Clustering', 'Betweenness'), col=c('red', 'green', 'blue'), pch=c(5,2,1))
+dev.off()
