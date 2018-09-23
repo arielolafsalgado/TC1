@@ -3,8 +3,9 @@ graphics.off()
 g = read_graph('tc01_data/dolphins.gml',format='gml')
 dolgen = read.table('tc01_data/dolphinsGender.txt')
 
-V(g)$gender =   as.character(dolgen$V2[match(V(g)$label,dolgen$V1)])
-
+V(g)$gender = as.character(dolgen$V2[match(V(g)$label,dolgen$V1)])
+V(g)$color  = c('red','blue')[match(V(g)$gender,c('m','f'))]
+V(g)$color[is.na(V(g)$gender)] = 'black'
 ##Punto a.
 pdf('layouts_dolphins.pdf')
 lN = layout_nicely(g)
@@ -89,9 +90,11 @@ n = length(V(g))
 ggk = gg
 ggc = gg
 ggb = gg
+gga = gg
 sizek = NULL
 sizec = NULL
 sizeb = NULL
+sizea = NULL
 for(i in 1:n){
 	#Primero con grado
 	grados = degree(ggk)
@@ -108,31 +111,43 @@ for(i in 1:n){
 	indice = which.max(bets)
 	ggb = delete_vertices(ggb, indice)
 
+
+	#Ahora por azar
+	indice = sample(length(V(gga)),size=1)
+	gga = delete_vertices(gga, indice)
+
+
 	sizek = rbind(sizek, sort(clusters(ggk)$csize, decreasing=T)[1:2])
 	sizec = rbind(sizec, sort(clusters(ggc)$csize, decreasing=T)[1:2])
 	sizeb = rbind(sizeb, sort(clusters(ggb)$csize, decreasing=T)[1:2])
+	sizea = rbind(sizea, sort(clusters(gga)$csize, decreasing=T)[1:2])
 }
 
 pdf('ej2c.pdf')
 plot(sizek[,2]/sizek[,1], pch=18, col='red',xlab='paso',ylab='relacion 2/1')
 points(sizec[,2]/sizec[,1], pch=17, col='green')
 points(sizeb[,2]/sizeb[,1], pch=16, col='blue')
-legend(x=40, y=0.2, legend=c('Grado', 'Clustering', 'Betweenness'), col=c('red', 'green', 'blue'), pch=18:16)
+points(sizea[,2]/sizea[,1], pch=15, col='black')
+legend(x=40, y=0.2, legend=c('Grado', 'Clustering', 'Betweenness','Azar'), col=c('red', 'green', 'blue','black'), pch=18:15)
 plot(sizek[,2], pch=18, col='red',xlab='paso',ylab='size 2',ylim=c(0,n))
 points(sizec[,2], pch=17, col='green')
 points(sizeb[,2], pch=16, col='blue')
-legend(x=40, y=40, legend=c('Grado', 'Clustering', 'Betweenness'), col=c('red', 'green', 'blue'), pch=18:16)
+points(sizea[,2], pch=15, col='black')
+legend(x=40, y=40, legend=c('Grado', 'Clustering', 'Betweenness','Azar'), col=c('red', 'green', 'blue','black'), pch=18:15)
 plot(sizek[,1], pch=18, col='red',xlab='paso',ylab='size 1')
 points(sizec[,1], pch=17, col='green',ylim=c(0,n))
 points(sizeb[,1], pch=16, col='blue')
-legend(x=40, y=40, legend=c('Grado', 'Clustering', 'Betweenness'), col=c('red', 'green', 'blue'), pch=18:16)
+points(sizea[,1], pch=15, col='black')
+legend(x=40, y=40, legend=c('Grado', 'Clustering', 'Betweenness','Azar'), col=c('red', 'green', 'blue','black'), pch=18:15)
 
-plot(sizek[,2], pch=18, col='red',xlab='paso',ylab='size 2',ylim=c(0,n))
+plot(sizek[,2], pch=18, col='red',xlab='paso',ylab='Tamaño',ylim=c(0,n))
 points(sizec[,2], pch=17, col='green')
 points(sizeb[,2], pch=16, col='blue')
-legend(x=40, y=30, legend=c('Grado', 'Clustering', 'Betweenness'), col=c('red', 'green', 'blue'), pch=18:16)
+points(sizea[,2], pch=15, col='black')
+legend(x=40, y=30, legend=c('Grado', 'Clustering', 'Betweenness','Azar'), col=c('red', 'green', 'blue','black'), pch=18:15,title='Segundo componente')
 points(sizek[,1], pch=5, col='red',xlab='paso',ylab='size 1')
 points(sizec[,1], pch=2, col='green',ylim=c(0,n))
 points(sizeb[,1], pch=1, col='blue')
-legend(x=40, y=50, legend=c('Grado', 'Clustering', 'Betweenness'), col=c('red', 'green', 'blue'), pch=c(5,2,1))
+points(sizea[,1], pch=0, col='black')
+legend(x=40, y=50, legend=c('Grado', 'Clustering', 'Betweenness','Azar'), col=c('red', 'green', 'blue','black'), pch=c(5,2,1,0),title='Primer componente')
 dev.off()
