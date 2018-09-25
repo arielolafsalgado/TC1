@@ -14,22 +14,62 @@
 
 \maketitle
 
+
 \section{Problema 1}
 En este punto se pide analizar tres redes complejas de interacción de proteinas. La primera se trata de interacciones binarias entre proteinas, la segunda de co-pertenencia a complejos, y la tercera una obtenida del proyecto Yeast Interactome Database (YID).
 
-Las tres redes se visualizan en la tabla \ref{comparacionvisualP1}.
+\subsection{Punto 1.a}
+En este inciso se solicita visualizar las redes de forma informativa acerca de su estructura. Las tres redes se visualizan en la tabla \ref{comparacionvisualP1}.
 %% Fijate de incluir una mención a cada red en el texto, que no esté solo en la figura. Y también poner las redes "completas", no cortadas en dos.
 \begin{table}[ht]
-\caption{\textbf{Superior:} Componente gigante perteneciente a la red de interacciones binarias (APMS), de co-pertenencia (LIY), y del proyecto YID (Y2H), de izquierda a derecha. \textbf{Inferior:} misma información respecto a las componentes pequeñas de las redes.}
+\caption{\textbf{Superior:} Componente gigante perteneciente a la red del proyecto YID (Y2H), de interacciones binarias (APMS), y de co-pertenencia (LIT), de izquierda a derecha. \textbf{Inferior:} misma información respecto a las componentes pequeñas de las redes.}
 \centering
 \begin{tabular}{ccc}
-\includegraphics[scale=0.4]{Imagenes_P1/APMSgigante.pdf}&\includegraphics[scale=0.4]{Imagenes_P1/LITgigante.pdf}&\includegraphics[scale=0.4]{Imagenes_P1/Y2Hgigante.pdf}\\
+\includegraphics[scale=0.4]{Imagenes_P1/Y2Hgigante.pdf}&\includegraphics[scale=0.4]{Imagenes_P1/APMSgigante.pdf}&\includegraphics[scale=0.4]{Imagenes_P1/LITgigante.pdf}\\
  
-\includegraphics[scale=0.4]{Imagenes_P1/APMSchiquitos.pdf}&\includegraphics[scale=0.4]{Imagenes_P1/LITchiquitos.pdf}&\includegraphics[scale=0.4]{Imagenes_P1/Y2Hchiquitos.pdf}\\
+\includegraphics[scale=0.4]{Imagenes_P1/Y2Hchiquitos.pdf}&\includegraphics[scale=0.4]{Imagenes_P1/APMSchiquitos.pdf}&\includegraphics[scale=0.4]{Imagenes_P1/LITchiquitos.pdf}\\
 \end{tabular}
 \label{comparacionvisualP1}
 \end{table}
 
+Se pueden observar algunas cosas en base a estos diagramas. En primer lugar, observando sólamente a los componentes pequeños podemos ver que en la red Y2H, no presentan clustering considerable. En contraste, la red APMS presenta clustering significativo, y la red LIT también, aunque no tanto como la red APMS.
+
+Por otro lado, observando el componente gigante se puede ver que la mayoría de los links de la red Y2H tienden hacia un mismo lugar en la red, mientras que la red APMS se presenta menos centralizada y la LIT toma un punto medio entre las dos.
+
+\subsection{Punto 1.b}
+En este inciso se pide resumir ciertas características de red en una tabla. La siguiente se puede ver en la tabla \ref{tablacantidadesredesP1}.
+
+\begin{table}[ht]
+\caption{Cantidades de red asociadas a las redes correspondientes.}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccc}
+\textbf{Red} & \textbf{Y2H} & \textbf{APMS} & \textbf{LIT}\\
+Número de nodos & 2018 & 1622 & 1536\\
+Número de ejes & 2930 & 9070 & 2925\\
+Grado medio & 2.904 & 11.184 & 3.809\\
+Densidad & 1.440 10\textsuperscript{-3} & 6.899 10\textsuperscript{-3} & 2.481 10\textsuperscript{-3}\\
+Clustering global & 2.361 10\textsuperscript{-2} & 6.186 10\textsuperscript{-1} & 3.462 10\textsuperscript{-1}\\
+Clustering local medio & 9.700 10\textsuperscript{-2} & 7.410 10\textsuperscript{-1} & 4.556 10\textsuperscript{-1}\\
+Diámetro & 14 & 15 & 19\\
+
+\end{tabular}}
+\label{tablacantidadesredesP1}
+\end{table}
+
+Se puede ver que efectivamente la red Y2H presenta un clustring significativamente menos a las otras dos, y que la APMS tiene uno mayor a la red LIT, aunque están en el mismo órden de magnitud.
+
+Además, es interesante ver que el diámetro nos informa que para llegar de un extremo al otro de la red LIT, el número máximo es apreciablemente mayor que en las otras dos. Esto no es fácilmente visible en los diagramas vistos en la tabla \ref{comparacionvisualP1}
+
+\subsection{Punto 1.c}
+
+Las interacciones reportadas son todas de naturaleza biomolecular. Por un lado, es razonable que exista una sola componente gigante para estas redes, ya que las redes biológicas presentan una distribución de grado libre de escala, consistente con un mecanismo de attachment preferencial: en otras palabras, cuanto mayor el grado de un nodo, mayor la probabilidad de que tenga un dado enlace con otro. Entonces, la componente más grande siempre atraerá la mayoría de los enlaces, y se volverá más grande, llegando a ser la única componente gigante. Además, se espera en todos los casos la presencia de pocos hubs con grado significativamente mayor a la mayoría, al ser la distribución de grado libre de escala.
+
+Por otro lado, es razonable que una red de co-pertenencia (LIT) tenga una clusterización significativa, ya que muchas proteínas pueden pertenecer a un mismo complejo, y así todas estarán conectadas entre si formando un clique. Suponiendo que esta co-pertenencia influye sobre las interacciones binarias, tiene también sentido que una clusterización alta se presente en la red de interacciones binarias (APMS).
+
+Además, la red de copertenencia (LIT) presenta un diámetro más grande que las otras dos. Esto es razonable, porque cuando se trata de interacciones binarias (APMS, Y2H), es posible que interactúen dos proteínas que no estén en el mismo complejo, agregando conexiones y disminuyendo el diámetro.
+
+Esto también explica el grado medio mayor de la red de interacciones binarias (APMS), pero no la del interactoma de la levadura (Y2H), que presenta el grado medio más pequeño de todas. Esto puede ser por falsos negativos: al observarse sólamente aquello que ocurre en el núcleo, van a haber muchas interacciones que se pierden. Esto también explicaría el clustering relativamente pequeño del interactoma de la levadura.
 
 \section{Problema 2}
 En el segundo problema se propone analizar una red social de 62 delfines de Nueva Zelanda. La red consta de 34 machos, 24 hembras y 4 delfines de sexo desconocido. La base de datos establece 159 vinculos entre los delfines de la red.
