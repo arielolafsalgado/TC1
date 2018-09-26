@@ -75,25 +75,25 @@ Esto también explica el grado medio mayor de la red de interacciones binarias (
 En el segundo problema se propone analizar una red social de 62 delfines de Nueva Zelanda. La red consta de 34 machos, 24 hembras y 4 delfines de sexo desconocido. La base de datos establece 159 vinculos entre los delfines de la red.
 
 \subsection{Punto 2.a.}
-El primer objetivo es comparar diferentes opciones de layout para graficar la red, comparando ventajas y desventajas. Para esto empleamos el paquete \texttt{igraph} de \texttt{R}. El mismo provee distintas opciones de layout a partir de funciones predeterminadas. Presentamos para ejemplificar tres layouts: \texttt{layout-with-fr},\texttt{layout-as-tree} y \texttt{layout-on-grid}. El primero construye el layout a partir de un cálculo de equilibrio de fuerzas, el segundo intenta representar al grafo como un árbol, permitiendo que se le indique un nodo semilla, y el tercero posiciona los nodos sobre una grilla regular. En la figuras \ref{pt2layouts} se pueden observar los mismos. Los nodos rojos representan los machos, los azules las hembras, y los negros los de sexo desconocido. Ninguno de los últimos dos facilita la visualización del gráfico, indicando que las estructuras propuestas no son representativas de la estructura del grafo. Por otro lado, \texttt{layout\_with\_fr}, al tener directamente en cuenta los vinculos de la red para su construcción, nos permite observar que hay dos grupos de delfines bastante diferenciados, uno en el que predominan las hembras (y dominan los colores azules) y otro donde predominan los machos (mayoría de colores rojos).
+El primer objetivo es comparar diferentes opciones de layout para graficar la red, comparando ventajas y desventajas. Para esto empleamos el paquete \texttt{igraph} de \texttt{R}. El mismo provee distintas opciones de layout a partir de funciones predeterminadas. Presentamos para ejemplificar tres layouts: \texttt{layout\_with\_fr},\texttt{layout\_as\_tree} y \texttt{layout\_on\_grid}. El primero construye el layout a partir de un cálculo de equilibrio de fuerzas, el segundo intenta representar al grafo como un árbol, permitiendo que se le indique un nodo semilla, y el tercero posiciona los nodos sobre una grilla regular. En la figuras \ref{pt2layouts} se pueden observar los mismos. Los nodos rojos representan los machos, los azules las hembras, y los negros los de sexo desconocido. Ninguno de los últimos dos facilita la visualización del gráfico, indicando que las estructuras propuestas no son representativas de la estructura del grafo. Por otro lado, \texttt{layout\_with\_fr}, al tener directamente en cuenta los vinculos de la red para su construcción, nos permite observar que hay dos grupos de delfines bastante diferenciados, uno en el que predominan las hembras (y dominan los colores azules) y otro donde predominan los machos (mayoría de colores rojos).
 
 \begin{figure}[!htb]
    \begin{minipage}{0.3\textwidth}
 	\centering
 	\includegraphics[width=.7\linewidth]{Imagenes_P1/layout_dolphins2.pdf}
-%	\caption{Red de los delfines, graficada según \textt{layout\_with\_fr}.}
+	\caption{Red de los delfines, graficada según \texttt{layout\_with\_fr}.}
 	\label{pt2layoutsfr}
    \end{minipage}\hfill
    \begin{minipage}{0.3\textwidth}
 	\centering
 	\includegraphics[width=.7\linewidth]{Imagenes_P1/layout_dolphins3.pdf}
-%	\caption{Red de los delfines, graficada seg\'un \textt{layout\_as\_tree}.}
+	\caption{Red de los delfines, graficada seg\'un \texttt{layout\_as\_tree}.}
 	\label{pt2layouttree}
    \end{minipage}\hfill
    \begin{minipage}{0.3\textwidth}
 	\centering
 	\includegraphics[width=.7\linewidth]{Imagenes_P1/layout_dolphins7.pdf}
-%	\caption{Red de los delfines, graficada seg\'un \textt{layout\_on\_grid}.}
+	\caption{Red de los delfines, graficada seg\'un \texttt{\_on\_grid}.}
 	\label{pt2layoutgrid}
    \end{minipage}
    \label{pt2layouts}
@@ -187,9 +187,9 @@ En la siguiente tabla están los gráficos con distintas alternativas, con binea
    \label{pt2layout}
 \end{figure}
 
-En las figuras 4 a 6 podemos ver la distribución de grados utilizando un bineado lineal. Se se aprecia la forma de la distribución aunque es complicado cuantificar si un ajuste libre de escala será coherente. En figuras \ref{pt3loglin} y \ref{pt3loglog} se utilizó un bineado logarítmico en base 2, y en la escala logarítmica se aprecia bien el carácter libre de escala de dicha distribución.
+En las figuras 4 a 7 podemos ver la distribución de grados utilizando un bineado lineal. Se se aprecia la forma de la distribución aunque es complicado cuantificar si un ajuste libre de escala será coherente. En figuras 8 y 9 se utilizó un bineado logarítmico en base 2, y en la escala logarítmica se aprecia bien el carácter libre de escala de dicha distribución.
 
-En la figura \ref{pt3loglog} se agregó la recta de ajuste libre de escala obtenida vía el comando \textit{fit\_power\_law} utilizando una malla de $3000$ puntos a partir del $k_{min}$ que en nuestro caso toma valor $5$. El valor estimado es $\alpha=2.097157$ ajustandose correctamente aunque corrido hacia arriba. Esto se debe a que el parámetro de normalización, es decir, la ordenada al origen, se calcula teniendo en cuenta todos los valores de grado, no solo los mayores al $k_{min}$.
+En la figura 9 se agregó la recta de ajuste libre de escala obtenida vía el comando \texttt{fit\_power\_law} utilizando una malla de $3000$ puntos a partir del $k_{min}$ que en nuestro caso toma valor $5$. El valor estimado es $\alpha=2.097157$ ajustandose correctamente aunque corrido hacia arriba. Esto se debe a que el parámetro de normalización, es decir, la ordenada al origen, se calcula teniendo en cuenta todos los valores de grado, no solo los mayores al $k_{min}$.
 
 \section{Problema 4}
 En el cuarto problema se propone realizar distintas medidas para analizar la asortatividad de una red. La asortatividad representa la tendencia de un nodo a parecerse topológicamente a sus vecinos (por ejemplo en términos de grado). Para esto se toman en consideración dos redes: \textit{netscience} y \textit{as\_july\_22}. La primera es una red de colaboraciones científicas y la segunda de internet.
@@ -258,7 +258,7 @@ r_{Y2H} = -0.04
 \begin{equation}
 r_{APMS} = 0.60 
 \end{equation}
-donde nuevamente vemos acuerdo entre los coeficientes $r$ y $\mu$, aunque en el caso de la red Y2H la correlación es muy baja. En este caso,vemos que la red Y2H es desasortativa, y la red APMS es asortativa. Dado que la red Y2H se construye a partir de interacciones binarias, únicamente aquellas proteinas que interactuan con muchas otras tendrán muchas conexiones. En cambio, en la red APMS se establecen conexiones entre los grupos de conexiones que pertenecen a un complejo proteico común. Esto facilita la vinculación entre nodos de grado alto en la red APMS, ya que proteinas que interactuan con muchas otras (menos interactuantes), terminaran conectadas igualmente, al encontrarse con alta probabilidad ambas en un complejo proteico grande (ya que ambas son muy interactuantes). Cabe notar que en el caso de APMS es muy marcado como a grados altos hay mucha dispersión en el grado medio de los vecinos, indicando que no todas las \textit{proteinas famosas} se conectan principalmente con otras \textit{proteinas famosas}
+donde nuevamente vemos acuerdo entre los coeficientes $r$ y $\mu$, aunque en el caso de la red Y2H la correlación es muy baja. En este caso, vemos que la red Y2H es desasortativa, y la red APMS es asortativa. Dado que la red Y2H se construye a partir de interacciones binarias, únicamente aquellas proteinas que interactuan con muchas otras tendrán muchas conexiones. En cambio, en la red APMS se establecen conexiones entre los grupos de conexiones que pertenecen a un complejo proteico común. Esto facilita la vinculación entre nodos de grado alto en la red APMS, ya que proteinas que interactuan con muchas otras (menos interactuantes), terminaran conectadas igualmente, al encontrarse con alta probabilidad ambas en un complejo proteico grande (ya que ambas son muy interactuantes). Cabe notar que en el caso de APMS es muy marcado como a grados altos hay mucha dispersión en el grado medio de los vecinos, indicando que no todas las \textit{proteinas famosas} se conectan principalmente con otras \textit{proteinas famosas}.
 
 \begin{figure}[!htb]
 \centering
