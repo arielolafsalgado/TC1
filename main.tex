@@ -138,13 +138,15 @@ En todos los casos, consideramos únicamente los defines con sexo conocido. Obte
 \end{figure}
 
 \subsection{Punto 2.c.}
-Por último, el ejercicio propone comparar distintas estrategias para remover nodos de la red, basandose en la estructura de la misma. Para esto proponemos tres estrategias: extraer nodos según su grado, su coeficiente local de clustering, y su betwenness (una medida de la cantidad de caminos mínimos que atraviezan un eje). En la figura \ref{rupturas} podemos observar el tamaño de la primer y segunda componente. Elegimos la estrategia más apropiada viendo cual asemeja los tamaños más prontamente. Vemos que la estrategia más exitosa es la que extrae por betweenness. Seguida de ella está extraer por grado, que tiene éxito cuando las componentes ya son más pequeñas. Por último, extraer según el coeficiente de clustering rinde resultados de tamaño mucho menor, habiendo desperdiciado la mayoría de las eliminaciones en formar componentes pequeñas en vez de partir la componente gigante en dos similares.
+Por último, el ejercicio propone comparar distintas estrategias para remover nodos de la red, basandose en la estructura de la misma. Para esto proponemos cuatro estrategias: extraer nodos según su grado, por su coeficiente local de clustering, por su betwenness (una medida de la cantidad de caminos mínimos que atraviezan un eje), o al azar. En la figura \ref{rupturas} podemos observar el tamaño de la primer y segunda componente. Elegimos la estrategia más apropiada viendo cual asemeja los tamaños más prontamente. Vemos que la estrategia más exitosa es la que extrae por betweenness. Seguida de ella está extraer por grado, que tiene éxito cuando las componentes ya son más pequeñas.
+
+Por último, extraer según el coeficiente de clustering rinde resultados de tamaño mucho menor, habiendo desperdiciado la mayoría de las eliminaciones en formar componentes pequeñas en vez de partir la componente gigante en dos similares. No es sorprendente que este resultado sea muy parecido al azar.
 
 \begin{figure}[!htb]
    \centering
    \begin{minipage}{0.6\textwidth}
     \centering
-    \includegraphics[width=1.0\linewidth]{Imagenes_P1/P2_destruccion.pdf}
+    \includegraphics[width=1.0\linewidth]{Imagenes_P1/rupturas4.pdf}
     \caption{Decaimiento en el tamaño de la componente gigante y la segunda más grande a medida que se aplican algoritmos de destrucción basados en la eliminación de nodos por el grado de un nodo, por su coeficiente de clustering local, y por su betweenness. Cuando los puntos huecos de un color equivalen a los puntos llenos, se considera que se tienen dos componentes de igual tamaño como gigantes.}
     \label{rupturas}
    \end{minipage}
